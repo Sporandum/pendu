@@ -34,11 +34,22 @@ function bar(letters) {
         lettersElts = document.createElement('div'),
         i;
 
+    lettersElts.className = "letters-content";
+
         for (i = 0; i < l; i++) {
             let letterElt = document.createElement('div');
+            letterElt.className = "letter";
+            //  Affiche la première et la dernière lettre
+            if (i === 0 || i === l - 1) {
+                letterElt.textContent = letters[i];
+            }
+
             lettersElts.appendChild(letterElt)
         }
         return lettersElts;
 }
 
 // insérer les divs dans le DOM elt #word-to-find
+
+let test = document.getElementById('word-to-find');
+test.appendChild(bar(letters));

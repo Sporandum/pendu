@@ -35,6 +35,12 @@ header {
   margin-top: 50px;
 }
 
+#word-to-find .letters-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 #word-to-find .letter {
   margin: 5px;
   width: 60px;
@@ -44,6 +50,5 @@ header {
   text-transform: uppercase;
   font-size: 2em;
   font-weight: bold;
-  background-color: aqua;
   border-bottom: 5px solid gray;
 }

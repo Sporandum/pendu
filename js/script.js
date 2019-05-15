@@ -97,6 +97,7 @@ for (let i = 0; keys[i]; i++) {
     })
 };
 
+// Function test lettre dans mot
 function cho(testWord, letter) {
     let a = testWord.length,
         o = testWord.toLowerCase(),

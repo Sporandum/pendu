@@ -1,40 +1,38 @@
 // liste de mots
+let hero = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aquaman", "Antman"];
 
-
-let words = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aquaman", "Antman"];
-
-// Stock le dernier mot selectionner
 let word = null;
 
-// prendre un mot au hasard dans la liste de mot
+let pendu = {
+    // Selectionne la liste
+    wordList: hero,
 
-function foo(w) {
+    // Stock le dernier mot selectionner
 
-    let nbWords = w.length,
-        i = parseInt(Math.random() * (0 - nbWords) + nbWords),
-        newWord = w[i];
+    // Fonction prendre un mot au hasard dans la liste de mot
+    pickWord: function (wordList) {
 
-    if (word === null || word !== newWord) {
-        return word = newWord;
-    } else if (word !== null || word === newWord) {
-        console.log('else')
-        return foo(w);
-    }
-}
+        let nbWords = wordList.length,
+            i = parseInt(Math.random() * (0 - nbWords) + nbWords),
+            newWord = wordList[i];
 
-foo(words);
-// séparer chaque lettre du mot individuellement
+        if (word === null || word !== newWord) {
+            console.log('good');
+            return word = newWord;
+        } else if (word !== null || word === newWord) {
+            console.log('else')
+            return this.pickWord(wordList);
+        }
+    },
 
-let letters = word.split('');
+    // Fonction créer une div pour chaque lettre du mot avec la classe .letter
 
-// créer une div pour chaque lettre du mot avec la classe .letter
+    divLetters: function (letters) {
+        let lettersElts = document.createElement('div'),
+            l = letters.length,
+            i;
 
-function bar(letters) {
-    let l = letters.length,
-        lettersElts = document.createElement('div'),
-        i;
-
-    lettersElts.className = "letters-content";
+        lettersElts.className = "letters-content";
 
         for (i = 0; i < l; i++) {
             let letterElt = document.createElement('div');
@@ -47,9 +45,20 @@ function bar(letters) {
             lettersElts.appendChild(letterElt)
         }
         return lettersElts;
+    },
+
+    init: function () {
+        let elt = document.getElementById('word-to-find'),
+            letters = this.pickWord(this.wordList).split('');
+        // insérer les divs dans le DOM elt #word-to-find
+        elt.innerHTML = "";
+        elt.appendChild(this.divLetters(letters));
+    },
+
 }
 
-// insérer les divs dans le DOM elt #word-to-find
-
-let test = document.getElementById('word-to-find');
-test.appendChild(bar(letters));
+pendu.init();
+let btn = document.getElementById('play');
+btn.addEventListener('click', function () {
+    pendu.init();
+})

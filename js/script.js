@@ -1,8 +1,10 @@
 // liste de mots
 let hero = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aquaman", "Antman"];
 
-// Stock le dernier mot selectionner
+// Stock mot selectionné
 let word = null;
+
+
 
 let pendu = {
     // Selectionne la liste
@@ -56,18 +58,12 @@ let pendu = {
 
 }
 
-pendu.initWord();
-let btn = document.getElementById('play');
-btn.addEventListener('click', function () {
-    pendu.initWord();
-})
-
-
 // Keyboard
 
 let keyboard = {
-    foo: function() {
-        let a = 65, z = 90;
+    foo: function () {
+        let a = 65,
+            z = 90;
 
         let keyElts = document.createElement('div'),
             keyboard = document.getElementById('keyboard');
@@ -83,4 +79,36 @@ let keyboard = {
         keyboard.appendChild(keyElts);
 
     }
+}
+
+// Initialisation
+keyboard.foo();
+pendu.initWord();
+
+let btn = document.getElementById('play');
+btn.addEventListener('click', function () {
+    pendu.initWord();
+});
+
+let keys = document.getElementsByClassName('key');
+for (let i = 0; keys[i]; i++) {
+    keys[i].addEventListener('click', function (e) {
+
+    })
+};
+
+function cho(testWord, letter) {
+    let a = testWord.length,
+        o = testWord.toLowerCase(),
+        j = letter.toLowerCase(),
+        result = [],
+        i;
+    for (i = 0; i < a; i++) {
+        if (o[i].indexOf(j) === 0) {
+            result[i] = 1;
+        } else if (o[i].indexOf(j) === -1) {
+            result[i] = 0;
+        }
+    }
+    return result;
 }

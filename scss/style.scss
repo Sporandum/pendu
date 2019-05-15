@@ -22,9 +22,12 @@ header {
 
 #play {
     display: block;
-    width: 100px;
-    height: 25px;
+    width: 150px;
+    height: 40px;
     margin: 50px auto;
+    border-radius: 10px;
+    border: none;
+    outline: none;
 }
 
 #word-to-find {
@@ -49,5 +52,29 @@ header {
         font-weight: bold;
         // background-color: aqua;
         border-bottom: 5px solid gray;
+    }
+}
+
+#keyboard {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+    max-width: 600px;
+    margin: 100px auto;
+
+    .key {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        margin: 10px;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.5em;
+        background-color: lightgray;
+        border-radius: 0.2em;
+        box-shadow: 2px 2px 5px black;
     }
 }

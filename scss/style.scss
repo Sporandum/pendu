@@ -58,11 +58,17 @@ header {
 #keyboard {
 
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    margin-top: 50px;
-    max-width: 600px;
-    margin: 100px auto;
+
+    .keys {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 50px;
+        max-width: 500px;
+        margin: 100px auto;
+
+    }
 
     .key {
         width: 50px;

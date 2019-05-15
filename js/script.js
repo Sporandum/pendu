@@ -1,13 +1,12 @@
 // liste de mots
 let hero = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aquaman", "Antman"];
 
+// Stock le dernier mot selectionner
 let word = null;
 
 let pendu = {
     // Selectionne la liste
     wordList: hero,
-
-    // Stock le dernier mot selectionner
 
     // Fonction prendre un mot au hasard dans la liste de mot
     pickWord: function (wordList) {
@@ -47,7 +46,7 @@ let pendu = {
         return lettersElts;
     },
 
-    init: function () {
+    initWord: function () {
         let elt = document.getElementById('word-to-find'),
             letters = this.pickWord(this.wordList).split('');
         // insérer les divs dans le DOM elt #word-to-find
@@ -57,8 +56,31 @@ let pendu = {
 
 }
 
-pendu.init();
+pendu.initWord();
 let btn = document.getElementById('play');
 btn.addEventListener('click', function () {
-    pendu.init();
+    pendu.initWord();
 })
+
+
+// Keyboard
+
+let keyboard = {
+    foo: function() {
+        let a = 65, z = 90;
+
+        let keyElts = document.createElement('div'),
+            keyboard = document.getElementById('keyboard');
+
+        for (let i = a; i <= z; i++) {
+            let keyElt = document.createElement('div');
+            keyElt.className = 'key';
+            keyElt.textContent = String.fromCharCode(i);
+            keyElts.appendChild(keyElt);
+        }
+
+        keyElts.className = "keys";
+        keyboard.appendChild(keyElts);
+
+    }
+}

@@ -25,11 +25,28 @@ header {
   background-color: lightgrey;
 }
 
-#play {
+.info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.info #stat {
+  text-align: center;
+  font-size: 1.2em;
+  line-height: 1.5em;
+}
+
+#reset {
   display: block;
   width: 150px;
   height: 40px;
-  margin: 50px auto;
   border-radius: 10px;
   border: none;
   outline: none;

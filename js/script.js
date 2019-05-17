@@ -4,6 +4,8 @@ let hero = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aqua
 // Stock mot selectionné
 let word = null;
 
+let count = 7;
+
 
 
 let pendu = {
@@ -84,8 +86,9 @@ let keyboard = {
 // Initialisation
 keyboard.foo();
 pendu.initWord();
+displayCount();
 
-let btn = document.getElementById('play');
+let btn = document.getElementById('reset');
 btn.addEventListener('click', function () {
     pendu.initWord();
 });
@@ -112,4 +115,10 @@ function cho(testWord, letter) {
         }
     }
     return result;
+}
+
+function displayCount() {
+    let countElt = document.getElementById('count');
+        countElt.innerHTML = count;
+
 }

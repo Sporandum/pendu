@@ -6,6 +6,8 @@ let word = null;
 
 let count = 7;
 
+let state = null;
+
 
 let pendu = {
     // Selectionne la liste
@@ -52,8 +54,9 @@ let pendu = {
     reset: function () {
         let elt = document.getElementById('word-to-find'),
             letters = this.pickWord(this.wordList).split('');
-            count = 7;
-            displayCount();
+        count = 7;
+        displayCount();
+        state = "start";
         // insérer les divs dans le DOM elt #word-to-find
         elt.innerHTML = "";
         elt.appendChild(this.divLetters(letters));
@@ -109,15 +112,39 @@ for (let i = 0; keys[i]; i++) {
                 good = true;
             }
         }
+        let arthur = [],
+            x;
+        for (x = 0; tchoupi[x]; x++) {
+            arthur.push(tchoupi[x].textContent);
+        }
+        arthur = arthur.join('');
+        console.log(arthur);
 
-                
-        
 
-        if (!good) {
+
+        if (arthur === word) {
+            state = "win";
+        } else if (!good && count !== 1) {
             count--;
+        } else if (count === 1 && arthur !== word) {
+            count--;
+            state = "lose";
+
         }
 
         displayCount();
+        switch (state) {
+            case 'win':
+                    setTimeout(function () {
+                        alert('Gagné !!!');
+                    }, 150);
+                break;
+            case 'lose':
+                setTimeout(function () {
+                    alert('Perdu !!!');
+                }, 150);
+                break;
+        }
     })
 };
 

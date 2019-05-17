@@ -7,7 +7,6 @@ let word = null;
 let count = 7;
 
 
-
 let pendu = {
     // Selectionne la liste
     wordList: hero,
@@ -50,9 +49,11 @@ let pendu = {
         return lettersElts;
     },
 
-    initWord: function () {
+    reset: function () {
         let elt = document.getElementById('word-to-find'),
             letters = this.pickWord(this.wordList).split('');
+            count = 7;
+            displayCount();
         // insérer les divs dans le DOM elt #word-to-find
         elt.innerHTML = "";
         elt.appendChild(this.divLetters(letters));
@@ -85,18 +86,38 @@ let keyboard = {
 
 // Initialisation
 keyboard.foo();
-pendu.initWord();
+pendu.reset();
 displayCount();
 
 let btn = document.getElementById('reset');
 btn.addEventListener('click', function () {
-    pendu.initWord();
+    pendu.reset();
 });
 
 let keys = document.getElementsByClassName('key');
+let tchoupi = document.getElementsByClassName('letter');
+
 for (let i = 0; keys[i]; i++) {
     keys[i].addEventListener('click', function (e) {
 
+        let babar = cho(word, e.target.textContent),
+            j,
+            good = false;
+        for (j = 0; j < babar.length; j++) {
+            if (babar[j]) {
+                tchoupi[j].textContent = word[j];
+                good = true;
+            }
+        }
+
+                
+        
+
+        if (!good) {
+            count--;
+        }
+
+        displayCount();
     })
 };
 
@@ -119,6 +140,6 @@ function cho(testWord, letter) {
 
 function displayCount() {
     let countElt = document.getElementById('count');
-        countElt.innerHTML = count;
+    countElt.innerHTML = count;
 
 }

@@ -43,6 +43,12 @@ header {
   line-height: 1.5em;
 }
 
+@media screen and (max-width: 600px) {
+  .info #stat {
+    font-size: 1em;
+  }
+}
+
 #reset {
   display: block;
   width: 150px;
@@ -80,6 +86,15 @@ header {
   border-bottom: 5px solid gray;
 }
 
+@media screen and (max-width: 600px) {
+  #word-to-find .letter {
+    width: 30px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 1em;
+  }
+}
+
 #keyboard {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -98,9 +113,14 @@ header {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 50px;
   max-width: 500px;
   margin: 100px auto;
+}
+
+@media screen and (max-width: 600px) {
+  #keyboard .keys {
+    margin: 50px auto;
+  }
 }
 
 #keyboard .key {
@@ -116,4 +136,13 @@ header {
   border-radius: 0.2em;
   -webkit-box-shadow: 2px 2px 5px black;
           box-shadow: 2px 2px 5px black;
+}
+
+@media screen and (max-width: 600px) {
+  #keyboard .key {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 1em;
+  }
 }

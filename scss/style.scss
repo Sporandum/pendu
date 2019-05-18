@@ -29,10 +29,6 @@ header {
         text-align: center;
         font-size: 1.2em;
         line-height: 1.5em;
-
-        @media screen and (max-width: 600px) {
-            font-size: 1em;
-        }
     }
 }
 
@@ -66,13 +62,6 @@ header {
         font-size: 2em;
         font-weight: bold;
         border-bottom: 5px solid gray;
-
-        @media screen and (max-width: 600px) {
-            width: 20px;
-            height: 30px;
-            line-height: 30px;
-            font-size: 1em;
-        }
     }
 }
 
@@ -103,13 +92,6 @@ header {
         background-color: lightgray;
         border-radius: 0.2em;
         box-shadow: 2px 2px 5px black;
-
-        @media screen and (max-width: 600px) {
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            font-size: 1em;
-        }
     }
 
     

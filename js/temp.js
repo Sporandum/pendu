@@ -142,6 +142,12 @@ let rules = function (e) {
         setTimeout(function () {
             if (confirm("Perdu !! Voulez Vous recommencer ?")) {
                 init();
+            } else {
+                for (let i = 0; wordToFind[i]; i++) {
+                    gamerLettersFind[i] = wordToFind[i];
+                    renderWordToFind();
+                    document.getElementById('keyboard').innerHTML = "";
+                }
             }
         }, 150);
     }
@@ -150,6 +156,8 @@ let rules = function (e) {
         setTimeout(function () {
             if (confirm("Gagné !! Voulez Vous recommencer ?")) {
                 init();
+            } else {
+                document.getElementById('keyboard').innerHTML = "";
             }
         }, 150);
     }

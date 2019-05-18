@@ -43,6 +43,12 @@ header {
   line-height: 1.5em;
 }
 
+@media screen and (max-width: 600px) {
+  .info #stat {
+    font-size: 1em;
+  }
+}
+
 #reset {
   display: block;
   width: 150px;
@@ -78,6 +84,15 @@ header {
   font-size: 2em;
   font-weight: bold;
   border-bottom: 5px solid gray;
+}
+
+@media screen and (max-width: 600px) {
+  #word-to-find .letter {
+    width: 20px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 1em;
+  }
 }
 
 #keyboard {
@@ -116,4 +131,13 @@ header {
   border-radius: 0.2em;
   -webkit-box-shadow: 2px 2px 5px black;
           box-shadow: 2px 2px 5px black;
+}
+
+@media screen and (max-width: 600px) {
+  #keyboard .key {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 1em;
+  }
 }

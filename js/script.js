@@ -29,6 +29,9 @@ let pendu = {
         }
     },
 
+
+
+
     // Fonction créer une div pour chaque lettre du mot avec la classe .letter
 
     divLetters: function (letters) {
@@ -135,9 +138,9 @@ for (let i = 0; keys[i]; i++) {
         displayCount();
         switch (state) {
             case 'win':
-                    setTimeout(function () {
-                        alert('Gagné !!!');
-                    }, 150);
+                setTimeout(function () {
+                    alert('Gagné !!!');
+                }, 150);
                 break;
             case 'lose':
                 setTimeout(function () {
@@ -169,4 +172,81 @@ function displayCount() {
     let countElt = document.getElementById('count');
     countElt.innerHTML = count;
 
+}
+
+
+// return = un mot au hasard pris dans wordlist
+// wordlist est un tableau
+
+let pickWord = function (wordList) {
+    let wl = wordList.length,
+        i = parseInt(Math.random() * (0 - wl) + wl);
+    return wordList[i];
+}
+
+// return = alphabet (a => z) dans tableau
+// lettres en minuscule
+let alphabet = function () {
+    let alphabet = [],
+        i, a = 65,
+        z = 90;
+    for (i = a; i <= z; i++) {
+        alphabet.push(String.fromCharCode(i).toLowerCase());
+    }
+    return alphabet;
+}
+
+// return = lettres word dans tableau
+// lettres en minuscule
+let wordToArray = function (word) {
+    let wordToArray = [],
+        i;
+    for (i = 0; word[i]; i++) {
+        wordToArray.push(word[i].toLowerCase());
+    }
+    return wordToArray;
+}
+
+// return = alphabet moins lettres déjà trouvé
+// alphabet et wordToSearch sont des tableaux
+let possibleLetters = function (alphabet, wordToSearch) {
+    let possibleLetters = [],
+        i;
+    for (i = 0; alphabet[i]; i++) {
+        if (wordToSearch.indexOf(alphabet[i]) === -1) {
+            possibleLetters.push(alphabet[i]);
+        }
+    }
+    return possibleLetters;
+}
+
+
+// fonction créer et insert divs dans DOM contenant arrayValues
+let renderElt = function (classNameElt, classNameElts, arrayValues, insId) {
+    let eltParent = document.createElement('div'),
+        insElt = document.getElementById(insId);
+
+    for (let i = 0; arrayValues[i]; i++) {
+        let eltChild = document.createElement('div');
+        eltChild.className = classNameElts;
+        eltChild.textContent = arrayValues[i];
+        eltParent.appendChild(eltChild);
+    }
+
+    elt.className = classNameElt;
+    insElt.appendChild(eltParent);
+}
+
+
+// return tableau avec les lettres trouvé dans le mot
+let letterFindInWord = function(letter, wordInArray) {
+    let letterFindInWord = [], i;
+    for (i = 0; wordInArray[i]; i++) {
+        if (wordInArray[i].toLowerCase() === letter.toLowerCase()) {
+            letterFindInWord[i] = letter;
+        } else {
+            letterFindInWord[i] = "";
+        }
+    }
+    return letterFindInWord;
 }

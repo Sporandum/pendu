@@ -88,10 +88,11 @@ header {
 
 @media screen and (max-width: 600px) {
   #word-to-find .letter {
-    width: 30px;
-    height: 40px;
-    line-height: 40px;
+    width: 20px;
+    height: 30px;
+    line-height: 30px;
     font-size: 1em;
+    margin: 2px;
   }
 }
 
@@ -144,5 +145,6 @@ header {
     height: 35px;
     line-height: 35px;
     font-size: 1em;
+    margin: 5px;
   }
 }

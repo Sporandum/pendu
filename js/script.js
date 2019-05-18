@@ -250,3 +250,4 @@ let letterFindInWord = function(letter, wordInArray) {
     }
     return letterFindInWord;
 }
+

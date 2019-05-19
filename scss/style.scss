@@ -20,27 +20,48 @@ header {
     background-color: lightgrey;
 }
 
-.info {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+#message {
+    min-height: 2em;
+    max-width: 100%;
+    margin: 20px 10px;
+    padding: 5px;
+    text-align: center;
+    background-color:#ddd;
+    border: 2px solid #aaa;
+    font-size: 1.2em;
+    line-height: 2em;
+    border-radius: 0.5em;
 
-    #stat {
-        text-align: center;
-        font-size: 1.2em;
-        line-height: 1.5em;
-
-        @media screen and (max-width: 600px) {
-            font-size: 1em;
-        }
-    }
 }
 
-#reset {
+.success {
+    background-color: green !important;
+    color: white;
+}
+
+.failure {
+    background-color: orangered !important;
+    color: white;
+}
+
+.caution {
+    background-color: orange !important;
+}
+
+
+
+#buttons {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+#reset, #help {
     display: block;
     width: 150px;
     height: 40px;
     border-radius: 10px;
+    margin: 5px;
     border: none;
     outline: none;
 }

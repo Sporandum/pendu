@@ -1,183 +1,14 @@
 // liste de mots
 let hero = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aquaman", "Antman"];
 
-// Stock mot selectionné
-let word = null;
-
-let count = 7;
-
-let state = null;
-
-
-let pendu = {
-    // Selectionne la liste
-    wordList: hero,
-
-    // Fonction prendre un mot au hasard dans la liste de mot
-    pickWord: function (wordList) {
-
-        let nbWords = wordList.length,
-            i = parseInt(Math.random() * (0 - nbWords) + nbWords),
-            newWord = wordList[i];
-
-        if (word === null || word !== newWord) {
-            console.log('good');
-            return word = newWord;
-        } else if (word !== null || word === newWord) {
-            console.log('else')
-            return this.pickWord(wordList);
-        }
-    },
-
-
-
-
-    // Fonction créer une div pour chaque lettre du mot avec la classe .letter
-
-    divLetters: function (letters) {
-        let lettersElts = document.createElement('div'),
-            l = letters.length,
-            i;
-
-        lettersElts.className = "letters-content";
-
-        for (i = 0; i < l; i++) {
-            let letterElt = document.createElement('div');
-            letterElt.className = "letter";
-            //  Affiche la première et la dernière lettre
-            if (i === 0 || i === l - 1) {
-                letterElt.textContent = letters[i];
-            }
-
-            lettersElts.appendChild(letterElt)
-        }
-        return lettersElts;
-    },
-
-    reset: function () {
-        let elt = document.getElementById('word-to-find'),
-            letters = this.pickWord(this.wordList).split('');
-        count = 7;
-        displayCount();
-        state = "start";
-        // insérer les divs dans le DOM elt #word-to-find
-        elt.innerHTML = "";
-        elt.appendChild(this.divLetters(letters));
-    },
-
-}
-
-// Keyboard
-
-let keyboard = {
-    foo: function () {
-        let a = 65,
-            z = 90;
-
-        let keyElts = document.createElement('div'),
-            keyboard = document.getElementById('keyboard');
-
-        for (let i = a; i <= z; i++) {
-            let keyElt = document.createElement('div');
-            keyElt.className = 'key';
-            keyElt.textContent = String.fromCharCode(i);
-            keyElts.appendChild(keyElt);
-        }
-
-        keyElts.className = "keys";
-        keyboard.appendChild(keyElts);
-
-    }
-}
-
-// Initialisation
-keyboard.foo();
-pendu.reset();
-displayCount();
-
-let btn = document.getElementById('reset');
-btn.addEventListener('click', function () {
-    pendu.reset();
-});
-
-let keys = document.getElementsByClassName('key');
-let tchoupi = document.getElementsByClassName('letter');
-
-for (let i = 0; keys[i]; i++) {
-    keys[i].addEventListener('click', function (e) {
-
-        let babar = cho(word, e.target.textContent),
-            j,
-            good = false;
-        for (j = 0; j < babar.length; j++) {
-            if (babar[j]) {
-                tchoupi[j].textContent = word[j];
-                good = true;
-            }
-        }
-        let arthur = [],
-            x;
-        for (x = 0; tchoupi[x]; x++) {
-            arthur.push(tchoupi[x].textContent);
-        }
-        arthur = arthur.join('');
-        console.log(arthur);
-
-
-
-        if (arthur === word) {
-            state = "win";
-        } else if (!good && count !== 1) {
-            count--;
-        } else if (count === 1 && arthur !== word) {
-            count--;
-            state = "lose";
-
-        }
-
-        displayCount();
-        switch (state) {
-            case 'win':
-                setTimeout(function () {
-                    alert('Gagné !!!');
-                }, 150);
-                break;
-            case 'lose':
-                setTimeout(function () {
-                    alert('Perdu !!!');
-                }, 150);
-                break;
-        }
-    })
-};
-
-// Function test lettre dans mot
-function cho(testWord, letter) {
-    let a = testWord.length,
-        o = testWord.toLowerCase(),
-        j = letter.toLowerCase(),
-        result = [],
-        i;
-    for (i = 0; i < a; i++) {
-        if (o[i].indexOf(j) === 0) {
-            result[i] = 1;
-        } else if (o[i].indexOf(j) === -1) {
-            result[i] = 0;
-        }
-    }
-    return result;
-}
-
-function displayCount() {
-    let countElt = document.getElementById('count');
-    countElt.innerHTML = count;
-
-}
+let wordToFind, // le mot à trouver
+    gamerLettersFind, // tableau avec lettres trouvé par le joueur
+    gamerLettersTry, // tableau avec lettres essayé par le joueur
+    count; // décompte avant Game Over
 
 
 // return = un mot au hasard pris dans wordlist
 // wordlist est un tableau
-
 let pickWord = function (wordList) {
     let wl = wordList.length,
         i = parseInt(Math.random() * (0 - wl) + wl);
@@ -216,31 +47,15 @@ let possibleLetters = function (alphabet, wordToSearch) {
         if (wordToSearch.indexOf(alphabet[i]) === -1) {
             possibleLetters.push(alphabet[i]);
         }
+
     }
     return possibleLetters;
 }
 
-
-// fonction créer et insert divs dans DOM contenant arrayValues
-let renderElt = function (classNameElt, classNameElts, arrayValues, insId) {
-    let eltParent = document.createElement('div'),
-        insElt = document.getElementById(insId);
-
-    for (let i = 0; arrayValues[i]; i++) {
-        let eltChild = document.createElement('div');
-        eltChild.className = classNameElts;
-        eltChild.textContent = arrayValues[i];
-        eltParent.appendChild(eltChild);
-    }
-
-    elt.className = classNameElt;
-    insElt.appendChild(eltParent);
-}
-
-
 // return tableau avec les lettres trouvé dans le mot
-let letterFindInWord = function(letter, wordInArray) {
-    let letterFindInWord = [], i;
+let letterFindInWord = function (letter, wordInArray) {
+    let letterFindInWord = [],
+        i;
     for (i = 0; wordInArray[i]; i++) {
         if (wordInArray[i].toLowerCase() === letter.toLowerCase()) {
             letterFindInWord[i] = letter;
@@ -251,3 +66,179 @@ let letterFindInWord = function(letter, wordInArray) {
     return letterFindInWord;
 }
 
+// function rendu du mot à trouver
+let renderWordToFind = function () {
+    let insertElt = document.getElementById('word-to-find'),
+        parentElt = document.createElement('div');
+    parentElt.className = "letters-content";
+
+    for (let i = 0; i < gamerLettersFind.length; i++) {
+        let childElt = document.createElement('div');
+        childElt.className = "letter";
+        childElt.textContent = gamerLettersFind[i];
+        parentElt.appendChild(childElt);
+
+    }
+    insertElt.innerHTML = "";
+    insertElt.appendChild(parentElt);
+}
+
+// funtion rendu du clavier
+let renderKeyboard = function () {
+    let insertElt = document.getElementById('keyboard'),
+        parentElt = document.createElement('div'),
+        arrayAlpha = possibleLetters(alphabet(), gamerLettersFind),
+        arrayBeta = possibleLetters(arrayAlpha, gamerLettersTry);
+    parentElt.className = "keys";
+
+    for (let i = 0; arrayBeta[i]; i++) {
+        let childElt = document.createElement('div');
+        childElt.className = "key";
+        childElt.textContent = arrayBeta[i];
+        childElt.addEventListener('click', function (event) {
+            rules(event);
+
+        })
+        parentElt.appendChild(childElt);
+
+    }
+    insertElt.innerHTML = "";
+    insertElt.appendChild(parentElt);
+}
+
+// affiche le nombre de tour (count)
+let displayCount = function () {
+
+    if (count > 1) {
+        messageDisplay("Il vous reste " + count + " coups à jouer");
+        messageClassname(null);
+    } else if (count === 1) {
+        messageDisplay("Attention dernière chance");
+        messageClassname('caution');
+    }
+}
+
+
+// fonctionnement bouton reset
+let reset = function () {
+    let btn = document.getElementById('reset');
+    btn.addEventListener('click', init);
+}
+
+
+// fonctionnement bouton help
+let help = function () {
+    let btn = document.getElementById('help'),
+        i;
+    btn.addEventListener('click', function () {
+        if (count > 2) {
+            helpDisplay("none");
+            let letter = wordToFind[0].toUpperCase();
+            messageDisplay(`Le mot commence par la lettre : ${letter}`);
+            count -= 2;
+            setTimeout( function() {
+                messageDisplay("L'aide coûte 2 coups")
+            }, 2500);
+            setTimeout( function() {
+                displayCount()
+            }, 5000);
+            
+        } else {
+            helpDisplay("none");
+            messageDisplay("Hé, trop facile ;-)");
+            setTimeout(function () {
+                displayCount();
+            }, 2500);
+        }
+
+        renderWordToFind();
+        renderKeyboard();
+
+    });
+}
+// function affiche / cache le bouton help
+let helpDisplay = function (state) {
+    let elt = document.getElementById('help');
+    if (state === null) {
+        elt.style.display = null;
+    } else if (state === "none") {
+        elt.style.display = "none";
+    }
+}
+
+let messageDisplay = function (message) {
+    return document.getElementById('message').innerHTML = message;
+}
+
+let messageClassname = function (className) {
+    let elt = document.getElementById('message');
+    if (className) {
+        return elt.className = className;
+    } else {
+        return elt.removeAttribute("class");
+    }
+}
+
+
+// functionnement du pendu
+let rules = function (e) {
+    let letter = e.target.textContent,
+        result = letterFindInWord(letter, wordToFind),
+        c = true,
+        i;
+    // rajoute la lettre dans le tableau
+    gamerLettersTry.push(letter);
+
+    for (i = 0; i < result.length; i++) {
+        if (result[i]) {
+            gamerLettersFind[i] = result[i];
+            c = false;
+        }
+    }
+    if (c) {
+        count--;
+    }
+
+    displayCount();
+    renderWordToFind();
+    renderKeyboard();
+
+    if (wordToFind.join('') === gamerLettersFind.join('')) {
+        messageDisplay("Gagné !! Voulez vous recommencer ?");
+        messageClassname('success');
+        document.getElementById('keyboard').innerHTML = "";
+        helpDisplay("none");
+    }
+
+    if (count === 0) {
+
+        for (let i = 0; wordToFind[i]; i++) {
+            gamerLettersFind[i] = wordToFind[i];
+            renderWordToFind();
+        }
+
+        messageDisplay("Perdu !! Voulez vous recommencer ?");
+        messageClassname('failure');
+        document.getElementById('keyboard').innerHTML = "";
+        helpDisplay("none");
+
+    }
+}
+
+// function initialisation de la partie
+let init = function () {
+    wordToFind = wordToArray(pickWord(hero)),
+        gamerLettersFind = Array(wordToFind.length).fill(''),
+        gamerLettersTry = [],
+        count = 7;
+
+    displayCount();
+    helpDisplay(null);
+    renderWordToFind();
+    renderKeyboard();
+}
+
+// premier lancement
+init();
+reset();
+help();

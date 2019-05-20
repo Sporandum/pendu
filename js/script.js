@@ -7,17 +7,16 @@ let wordToFind, // le mot à trouver
     count; // décompte avant Game Over
 
 
-// return = un mot au hasard pris dans wordlist
-// wordlist est un tableau
-let pickWord = function (wordList) {
-    let wl = wordList.length,
+// Retourne un resultat aléatoire pris dans tableau (array)
+let getRandomInArray = function (array) {
+    let wl = array.length,
         i = parseInt(Math.random() * (0 - wl) + wl);
-    return wordList[i];
+    return array[i];
 }
 
-// return = alphabet (a => z) dans tableau
+// Céer alphabet (a => z) dans tableau
 // lettres en minuscule
-let alphabet = function () {
+let alphabetInArray = function () {
     let alphabet = [],
         i, a = 65,
         z = 90;
@@ -87,7 +86,7 @@ let renderWordToFind = function () {
 let renderKeyboard = function () {
     let insertElt = document.getElementById('keyboard'),
         parentElt = document.createElement('div'),
-        arrayAlpha = possibleLetters(alphabet(), gamerLettersFind),
+        arrayAlpha = possibleLetters(alphabetInArray(), gamerLettersFind),
         arrayBeta = possibleLetters(arrayAlpha, gamerLettersTry);
     parentElt.className = "keys";
 
@@ -227,7 +226,7 @@ let rules = function (e) {
 
 // function initialisation de la partie
 let init = function () {
-    wordToFind = wordToArray(pickWord(hero)),
+    wordToFind = wordToArray(getRandomInArray(hero)),
         gamerLettersFind = Array(wordToFind.length).fill(''),
         gamerLettersTry = [],
         count = 7;

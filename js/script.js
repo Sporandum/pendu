@@ -1,7 +1,16 @@
 // liste de mots
 let hero = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aquaman", "Antman"];
 
-let wordToFind, // le mot à trouver
+let lists = {
+    Marvel: {
+        Thor: "Ragnarok",
+        Spiderman: "Grandes responsabilités",
+        IronMan: "ACDC",
+    }
+};
+
+let list, // liste selectionné par le joueur
+    wordToFind, // le mot à trouver
     gamerLettersFind, // tableau avec lettres trouvé par le joueur
     gamerLettersTry, // tableau avec lettres essayé par le joueur
     count; // décompte avant Game Over
@@ -141,7 +150,7 @@ let reset = function () {
 let help = function () {
     let btn = document.getElementById('help');
     // Désactive l'aide
-    document.addEventListener('click', function() {
+    document.addEventListener('click', function () {
         if (count <= 2) {
             helpDisplay("none");
         }
@@ -230,8 +239,7 @@ let rules = function (l) {
 let init = function () {
     wordToFind = wordToArray(getRandomInArray(hero)),
         gamerLettersFind = Array(wordToFind.length).fill(''),
-        gamerLettersTry = [],
-        count = 7;
+        gamerLettersTry = [];
 
     displayCount();
     helpDisplay(null);
@@ -246,7 +254,70 @@ help();
 
 // test messageWindow
 
-let messageWindow = function() {
-    let bodyElt = document.querySelector('body');
-    
+let StartGameWindow = function () {
+    let WindowContainer = document.getElementById('window-container'),
+        windowMessageElt = document.getElementById('window-message'),
+        btnStart = document.createElement('button');
+
+    btnStart.textContent = "Démarrer";
+    btnStart.addEventListener('click', function () {
+        let countSelect = document.getElementById('count-select'),
+            listSelect = document.getElementById('list-select');
+
+        count = countSelect.options[countSelect.selectedIndex].textContent;
+
+        // list = lists.listSelect.options[listSelect.selectedIndex].textContent;
+
+        init();
+        WindowContainer.style.display = "none";
+    });
+    windowMessageElt.appendChild(listSelect(lists));
+    windowMessageElt.appendChild(countSelect());
+    windowMessageElt.appendChild(btnStart);
 }
+
+
+let countSelect = function () {
+    let selectElt = document.createElement('select'),
+        min = 2,
+        max = 7,
+        i;
+    selectElt.setAttribute('id', "count-select");
+    for (i = min; i <= max; i++) {
+        let optionElt = document.createElement('option');
+        optionElt.value = i;
+        optionElt.textContent = i;
+        if (i === max) {
+            optionElt.setAttribute("selected", "selected");
+        }
+        selectElt.appendChild(optionElt);
+    }
+    return selectElt;
+}
+
+let listSelect = function (lists) {
+    let selectElt = document.createElement('select'),
+        listName = [],
+        i;
+    selectElt.setAttribute('id', "list-select");
+    for (let name in lists) {
+        listName.push(name);
+    }
+    for (i = 0; listName[i]; i++) {
+        let optionElt = document.createElement('option');
+        optionElt.value = listName[i];
+        optionElt.textContent = listName[i];
+        selectElt.appendChild(optionElt);
+    }
+    return selectElt;
+}
+
+StartGameWindow();
+
+(function() {
+    // let listTest = [],
+    // i;
+    console.log(Object.keys(lists.Marvel));
+    console.log(Object.values(lists.Marvel));
+    
+})();

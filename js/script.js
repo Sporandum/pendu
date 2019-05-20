@@ -1,5 +1,5 @@
 // liste de mots
-let hero = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aquaman", "Antman"];
+let hero = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aquaman", "Antman", "Hulk", "Supergirl", "Flash", "Mario", "Dante", "Robin", "Joker", "Daredevil", "Punisher", "Wolverine", "Catwoman", "Batwoman", "Elektra", "Hellboy", "Hancock", "Ghostrider"];
 
 let wordToFind, // le mot à trouver
     gamerLettersFind, // tableau avec lettres trouvé par le joueur

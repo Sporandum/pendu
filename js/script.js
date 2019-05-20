@@ -51,6 +51,18 @@ let possibleLetters = function (alphabet, wordToSearch) {
     return possibleLetters;
 }
 
+// return lettres pour help
+let lettersToHelp = function (arrayA, arrayB) {
+    let lettersToHelp = [],
+        i;
+    for (i = 0; arrayA[i]; i++) {
+        if (arrayA[i] !== arrayB[i]) {
+            lettersToHelp.push(arrayA[i]);
+        }
+    }
+    return lettersToHelp;
+}
+
 // return tableau avec les lettres trouvé dans le mot
 let letterFindInWord = function (letter, wordInArray) {
     let letterFindInWord = [],
@@ -95,7 +107,8 @@ let renderKeyboard = function () {
         childElt.className = "key";
         childElt.textContent = arrayBeta[i];
         childElt.addEventListener('click', function (event) {
-            rules(event);
+            let letter = event.target.textContent;
+            rules(letter);
 
         })
         parentElt.appendChild(childElt);
@@ -117,7 +130,6 @@ let displayCount = function () {
     }
 }
 
-
 // fonctionnement bouton reset
 let reset = function () {
     let btn = document.getElementById('reset');
@@ -127,34 +139,23 @@ let reset = function () {
 
 // fonctionnement bouton help
 let help = function () {
-    let btn = document.getElementById('help'),
-        i;
+    let btn = document.getElementById('help');
+    // Désactive l'aide
+    document.addEventListener('click', function() {
+        if (count <= 2) {
+            helpDisplay("none");
+        }
+    });
+
     btn.addEventListener('click', function () {
         if (count > 2) {
-            helpDisplay("none");
-            let letter = wordToFind[0].toUpperCase();
-            messageDisplay(`Le mot commence par la lettre : ${letter}`);
+            let joker = getRandomInArray(lettersToHelp(wordToFind, gamerLettersFind));
             count -= 2;
-            setTimeout( function() {
-                messageDisplay("L'aide coûte 2 coups")
-            }, 2500);
-            setTimeout( function() {
-                displayCount()
-            }, 5000);
-            
-        } else {
-            helpDisplay("none");
-            messageDisplay("Hé, trop facile ;-)");
-            setTimeout(function () {
-                displayCount();
-            }, 2500);
+            rules(joker);
         }
-
-        renderWordToFind();
-        renderKeyboard();
-
     });
 }
+
 // function affiche / cache le bouton help
 let helpDisplay = function (state) {
     let elt = document.getElementById('help');
@@ -165,10 +166,12 @@ let helpDisplay = function (state) {
     }
 }
 
+// function affichage message
 let messageDisplay = function (message) {
     return document.getElementById('message').innerHTML = message;
 }
 
+// function défini class à message
 let messageClassname = function (className) {
     let elt = document.getElementById('message');
     if (className) {
@@ -178,15 +181,14 @@ let messageClassname = function (className) {
     }
 }
 
-
 // functionnement du pendu
-let rules = function (e) {
-    let letter = e.target.textContent,
-        result = letterFindInWord(letter, wordToFind),
+let rules = function (l) {
+    let letter = l,
+        result = letterFindInWord(l, wordToFind),
         c = true,
         i;
     // rajoute la lettre dans le tableau
-    gamerLettersTry.push(letter);
+    gamerLettersTry.push(l);
 
     for (i = 0; i < result.length; i++) {
         if (result[i]) {

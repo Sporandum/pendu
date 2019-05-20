@@ -243,3 +243,10 @@ let init = function () {
 init();
 reset();
 help();
+
+// test messageWindow
+
+let messageWindow = function() {
+    let bodyElt = document.querySelector('body');
+    
+}

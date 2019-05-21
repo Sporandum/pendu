@@ -1,5 +1,4 @@
 // liste de mots
-let hero = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aquaman", "Antman", "Hulk", "Supergirl", "Flash", "Mario", "Dante", "Robin", "Joker", "Daredevil", "Punisher", "Wolverine", "Catwoman", "Batwoman", "Elektra", "Hellboy", "Hancock", "Ghostrider"];
 let mainList = {
     marvel: {
         name: "Marvel Universe",
@@ -155,7 +154,6 @@ let listIndex, // Index de la liste selectionné par le joueur
     gamerLettersFind, // Tableau avec lettres trouvé par le joueur
     gamerLettersTry, // Tableau avec lettres essayé par le joueur
     count; // Décompte avant Game Over
-
 
 
 // Retourne un resultat aléatoire pris dans tableau (array)

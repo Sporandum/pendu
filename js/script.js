@@ -7,6 +7,7 @@ let wordToFind, // le mot à trouver
     count; // décompte avant Game Over
 
 
+
 // Retourne un resultat aléatoire pris dans tableau (array)
 let getRandomInArray = function (array) {
     let wl = array.length,
@@ -141,7 +142,7 @@ let reset = function () {
 let help = function () {
     let btn = document.getElementById('help');
     // Désactive l'aide
-    document.addEventListener('click', function() {
+    document.addEventListener('click', function () {
         if (count <= 2) {
             helpDisplay("none");
         }

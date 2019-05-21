@@ -1,19 +1,159 @@
 // liste de mots
-let hero = ["Thor", "Batman", "Spiderman", "Superman", "Ironman", "Venom", "Aquaman", "Antman"];
-
-let lists = {
-    Marvel: {
-        Thor: "Ragnarok",
-        Spiderman: "Grandes responsabilités",
-        IronMan: "ACDC",
+let mainList = {
+    marvel: {
+        name: "Marvel Universe",
+        list: [
+            ["Captain America"],
+            ["Hawkeye"],
+            ["Iron Man"],
+            ["Pepper Potts"],
+            ["Jarvis"],
+            ["Hulk"],
+            ["Black Panther"],
+            ["Thor"],
+            ["Heimdall"],
+            ["Loki"],
+            ["Ant-Man"],
+            ["The Wasp"],
+            ["Nick Fury"],
+            ["Captain Marvel"],
+            ["Black Widow"],
+            ["War Machine"],
+            ["Luke Cage"],
+            ["Jessica Jones"],
+            ["Daredevil"],
+            ["Elektra"],
+            ["Iron Fist"],
+            ["Spider-Man"],
+            ["Wolverine"],
+            ["Vision"],
+            ["Star-Lord"],
+            ["Warlock"],
+            ["Groot"],
+            ["Rocket Raccoon"],
+            ["Phyla-Vell"],
+            ["SHIELD"],
+            ["Dr Strange"],
+            ["Deadpool"],
+            ["Ultron"],
+            ["Dr Fatalis"],
+            ["HYDRA"],
+            ["Thanos"],
+            ["Professor X"],
+            ["cyclope"],
+            ["Iceberg"],
+            ["Angel"],
+            ["Beast"],
+            ["Strange Girl"],
+            ["Mimic"],
+            ["Diablo"],
+            ["Tornade"],
+            ["Havok"],
+            ["Colossus"],
+            ["Malicia"],
+            ["Magneto"],
+            ["Psylocke"],
+            ["Gambit"],
+            ["Cable"],
+            ["Mystique"],
+            ["Juggernaut"],
+            ["Sabertooth"],
+            ["Phoenix"],
+            ["Domino"]
+        ]
+    },
+    dc: {
+        name: "DC Comics",
+        list: [
+            ["Aquaman"],
+            ["Superman"],
+            ["Batman"],
+            ["Wonder Woman"],
+            ["Green Lantern"],
+            ["The Flash"],
+            ["Cyborg"],
+            ["Atom"],
+            ["Bane"],
+            ["Ares"],
+            ["Arsenal"],
+            ["BatGirl"],
+            ["BatWoman"],
+            ["Black Canary"],
+            ["Black lightning"],
+            ["CatWoman"],
+            ["ClayFace"],
+            ["Constantine"],
+            ["James Gordon"],
+            ["Darkseid"],
+            ["DeadShot"],
+            ["Deathstroke"],
+            ["Doomsday"],
+            ["Suicide Squad"],
+            ["SuperBoy"],
+            ["SuperGirl"],
+            ["Titans"],
+            ["Two-Face"],
+            ["Watchmen"],
+            ["Shazam"],
+            ["Zod"],
+            ["Zoom"],
+            ["Constantine"],
+            ["Constantine"],
+            ["Constantine"],
+        ]
     }
-};
 
-let list, // liste selectionné par le joueur
-    wordToFind, // le mot à trouver
-    gamerLettersFind, // tableau avec lettres trouvé par le joueur
-    gamerLettersTry, // tableau avec lettres essayé par le joueur
-    count; // décompte avant Game Over
+}
+
+// Liste des propriétés de mainlist (dans un tableau)
+let themesKeyList = function () {
+    return Object.keys(mainList);
+}
+
+// Liste des themes
+let themesNameList = function () {
+    let nb = themesKeyList().length,
+        themesName = [],
+        i;
+    for (i = 0; i < nb; i++) {
+        themesName.push(themeName(i));
+    }
+    return themesName;
+}
+
+
+// Nombre de mots dans liste du theme en fournissant index theme
+let nbWordsInList = function (indexTheme) {
+    return mainList[themesKeyList()[indexTheme]].list.length;
+}
+
+// Nom d'un theme en fournissant un numéro index
+let themeName = function (indexTheme) {
+    return mainList[themesKeyList()[indexTheme]].name;
+}
+
+// Le mot en fournissant l'index du theme, l'index du mot
+let word = function (indexTheme, indexWord) {
+    return mainList[themesKeyList()[indexTheme]].list[indexWord][0];
+}
+
+// L' indice en fournissant l'index du theme, l'index de l'indice
+let clue = function (indexTheme, indexclue) {
+    return mainList[themesKeyList()[indexTheme]].list[indexclue][1];
+}
+
+// Nombre aléatoire à partir de la longueur d'un tableau
+let randToMax = function (nbMax) {
+    return parseInt(Math.random() * (0 - nbMax) + nbMax);
+}
+
+
+let listIndex, // Index de la liste selectionné par le joueur
+    themeChosen, // Nom du thème
+    wordToFind, // Le mot à trouver
+    gamerLettersFind, // Tableau avec lettres trouvé par le joueur
+    gamerLettersTry, // Tableau avec lettres essayé par le joueur
+    count; // Décompte avant Game Over
 
 
 // Retourne un resultat aléatoire pris dans tableau (array)
@@ -90,12 +230,27 @@ let letterFindInWord = function (letter, wordInArray) {
 let renderWordToFind = function () {
     let insertElt = document.getElementById('word-to-find'),
         parentElt = document.createElement('div');
+
     parentElt.className = "letters-content";
 
     for (let i = 0; i < gamerLettersFind.length; i++) {
         let childElt = document.createElement('div');
-        childElt.className = "letter";
+
         childElt.textContent = gamerLettersFind[i];
+
+        console.log(childElt.textContent);
+
+        switch (childElt.textContent) {
+            case "-":
+                childElt.className = "letter letter-tiret";
+                break;
+            case " ":
+                childElt.className = "letter letter-space";
+                break;
+            default:
+                childElt.className = "letter";
+        }
+
         parentElt.appendChild(childElt);
 
     }
@@ -142,7 +297,7 @@ let displayCount = function () {
 // fonctionnement bouton reset
 let reset = function () {
     let btn = document.getElementById('reset');
-    btn.addEventListener('click', init);
+    btn.addEventListener('click', StartGameWindow);
 }
 
 
@@ -237,9 +392,18 @@ let rules = function (l) {
 
 // function initialisation de la partie
 let init = function () {
-    wordToFind = wordToArray(getRandomInArray(hero)),
-        gamerLettersFind = Array(wordToFind.length).fill(''),
-        gamerLettersTry = [];
+    gamerLettersFind = Array(wordToFind.length).fill('');
+    
+    // insertion des tirets et des espaces dans gamerLettersFind
+    for (let i = 0; wordToFind[i]; i++) {
+        if (wordToFind[i] === " ") {
+            gamerLettersFind[i] = " ";
+        } else if (wordToFind[i] === "-") {
+            gamerLettersFind[i] = "-";
+        }
+    }
+
+    gamerLettersTry = [];
 
     displayCount();
     helpDisplay(null);
@@ -247,47 +411,77 @@ let init = function () {
     renderKeyboard();
 }
 
-// premier lancement
-init();
-reset();
-help();
-
-// test messageWindow
-
+// Fenetre de lancement
 let StartGameWindow = function () {
-    let WindowContainer = document.getElementById('window-container'),
+    let windowContainerElt = document.getElementById('window-container'),
         windowMessageElt = document.getElementById('window-message'),
-        btnStart = document.createElement('button');
+        windowHeaderElt = document.createElement('div'),
+        selectElt = document.createElement('div'),
+        btnStartElt = document.createElement('button'),
+        themeTitleElt = document.getElementById('theme-title');
+    // modifie le titre de la fenetre du navigateur
+    document.querySelector('head title').innerHTML = "Jeu du Pendu";
 
-    btnStart.textContent = "Démarrer";
-    btnStart.addEventListener('click', function () {
-        let countSelect = document.getElementById('count-select'),
-            listSelect = document.getElementById('list-select');
+    windowContainerElt.style.display = "block";
+    // Header windows Message
+    windowHeaderElt.setAttribute('id', "window-message-header");
+    windowHeaderElt.innerHTML = "Menu de Selection";
 
-        count = countSelect.options[countSelect.selectedIndex].textContent;
+    // Select
+    selectElt.className = "window-select";
+    selectElt.appendChild(labelListSelect());
+    selectElt.appendChild(listSelectElts());
+    selectElt.appendChild(labelCountSelect());
+    selectElt.appendChild(countSelectElt());
 
-        // list = lists.listSelect.options[listSelect.selectedIndex].textContent;
+    // Bouton démarrer
+    btnStartElt.setAttribute("id", "window-message-button");
+    btnStartElt.textContent = "Démarrer";
+    btnStartElt.addEventListener('click', function () {
+        let listSelect = document.getElementById('list-select'),
+            countSelect = document.getElementById('count-select');
+
+        listIndex = listSelect.options[listSelect.selectedIndex].value;
+        count = countSelect.options[countSelect.selectedIndex].value;
+
+        themeChosen = themeName(listIndex);
+
+        wordToFind = wordToArray(word(listIndex, randToMax(nbWordsInList(listIndex))));
+
+        windowContainerElt.style.display = "none";
+        themeTitleElt.innerHTML = themeChosen.toUpperCase();
+
+        document.querySelector('head title').innerHTML = "Jeu du Pendu" + " - " + themeChosen;
 
         init();
-        WindowContainer.style.display = "none";
+
     });
-    windowMessageElt.appendChild(listSelect(lists));
-    windowMessageElt.appendChild(countSelect());
-    windowMessageElt.appendChild(btnStart);
+    windowMessageElt.innerHTML = "";
+    windowMessageElt.appendChild(windowHeaderElt);
+    windowMessageElt.appendChild(selectElt);
+    windowMessageElt.appendChild(btnStartElt);
 }
 
+// label pour count-select
+let labelCountSelect = function () {
+    let labelElt = document.createElement('label');
+    labelElt.setAttribute('for', "count-select");
+    labelElt.textContent = "Nombre de chance";
+    return labelElt;
+}
 
-let countSelect = function () {
+// Créé <select> avec choix du nombre de coups
+let countSelectElt = function () {
     let selectElt = document.createElement('select'),
         min = 2,
-        max = 7,
+        max = 9,
         i;
     selectElt.setAttribute('id', "count-select");
     for (i = min; i <= max; i++) {
         let optionElt = document.createElement('option');
         optionElt.value = i;
         optionElt.textContent = i;
-        if (i === max) {
+        if (i === 7) {
             optionElt.setAttribute("selected", "selected");
         }
         selectElt.appendChild(optionElt);
@@ -295,29 +489,36 @@ let countSelect = function () {
     return selectElt;
 }
 
-let listSelect = function (lists) {
+
+// label pour list-select
+let labelListSelect = function () {
+    let labelElt = document.createElement('label');
+    labelElt.setAttribute('for', "list-select");
+    labelElt.textContent = "Choisissez un theme";
+    return labelElt;
+}
+
+
+
+// Créé <select> avec liste des themes
+let listSelectElts = function () {
     let selectElt = document.createElement('select'),
-        listName = [],
+        l = themesKeyList().length,
         i;
+
     selectElt.setAttribute('id', "list-select");
-    for (let name in lists) {
-        listName.push(name);
-    }
-    for (i = 0; listName[i]; i++) {
+    for (i = 0; i < l; i++) {
         let optionElt = document.createElement('option');
-        optionElt.value = listName[i];
-        optionElt.textContent = listName[i];
+        optionElt.value = [i];
+        optionElt.name = themesKeyList()[i];
+        optionElt.textContent = themesNameList()[i];
         selectElt.appendChild(optionElt);
     }
     return selectElt;
 }
 
+// lancement
 StartGameWindow();
 
-(function() {
-    // let listTest = [],
-    // i;
-    console.log(Object.keys(lists.Marvel));
-    console.log(Object.values(lists.Marvel));
-    
-})();
+reset();
+help();
